@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const questionRoutes = require('./routes/questionRoutes');
+const answerRoutes = require('./routes/answerRoutes');
 const setupSwagger = require('./swagger'); // Swagger 설정
 
 
@@ -27,6 +28,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 setupSwagger(app);
 
 app.use('/api/questions', questionRoutes);
+app.use('/api/answers', answerRoutes);
 
 
 
