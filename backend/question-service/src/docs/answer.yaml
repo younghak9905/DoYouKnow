@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: Answer API
+  version: 1.0.0
+  description: API documentation for managing answers
+
+tags:
+  - name: Answers
+    description: Operations related to answers
+
+paths:
+  /api/answers:
+    get:
+      summary: Retrieve all answers
+      tags: 
+        - Answers
+      responses:
+        200:
+          description: A list of answers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: The answer ID
+                      example: 61234abcd5678ef123456789
+                    questionId:
+                      type: string
+                      description: The ID of the related question
+                      example: 61234abcd5678ef123456789
+                    answerText:
+                      type: string
+                      description: The content of the answer
+                      example: "This is an answer."
+                    isAppProvided:
+                      type: boolean
+                      description: Whether the answer is provided by the app
+                      example: false
+                    createdAt:
+                      type: string
+                      format: date-time
+                      description: When the answer was created
+                      example: "2024-12-26T15:30:00.000Z"
+
+    post:
+      summary: Create a new answer
+      tags:
+        - Answers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                questionId:
+                  type: string
+                  description: The ID of the related question
+                  example: 61234abcd5678ef123456789
+                answerText:
+                  type: string
+                  description: The content of the answer
+                  example: "This is an answer."
+                isAppProvided:
+                  type: boolean
+                  description: Whether the answer is provided by the app
+                  example: false
+      responses:
+        201:
+          description: Answer created successfully
+        400:
+          description: Invalid input data
+
+  /api/answers/{id}:
+    get:
+      summary: Retrieve a specific answer by ID
+      tags:
+        - Answers
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The answer ID
+      responses:
+        200:
+          description: Answer found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  questionId:
+                    type: string
+                  answerText:
+                    type: string
+                  isAppProvided:
+                    type: boolean
+                  createdAt:
+                    type: string
+        404:
+          description: Answer not found
+
+    put:
+      summary: Update an answer
+      tags:
+        - Answers
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The answer ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                answerText:
+                  type: string
+                  description: Updated answer text
+                  example: "This is an updated answer."
+                isAppProvided:
+                  type: boolean
+                  description: Whether the updated answer is app-provided
+                  example: true
+      responses:
+        200:
+          description: Answer updated successfully
+        404:
+          description: Answer not found
+
+    delete:
+      summary: Delete an answer
+      tags:
+        - Answers
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The answer ID
+      responses:
+        200:
+          description: Answer deleted successfully
+        404:
+          description: Answer not found
