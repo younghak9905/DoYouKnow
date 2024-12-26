@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const questionRoutes = require('./routes/questionRoutes');
+const setupSwagger = require('./swagger'); // Swagger 설정
+
 
 dotenv.config();
 
@@ -21,16 +23,11 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
-// Routes
-app.get('/', (req, res) => {
-    res.send('Welcome to the Question & Answer Service API');
-});
+// Swagger 설정
+setupSwagger(app);
+
 app.use('/api/questions', questionRoutes);
 
-// Error Handling Middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ message: 'Something went wrong!' });
-});
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  title: Question & Answer Service API
+  version: 1.0.0
+  description: API documentation for the Question & Answer Service
+paths:
+  /api/questions:
+    get:
+      summary: Retrieve a list of questions
+      tags:
+        - Questions
+      responses:
+        200:
+          description: Successfully retrieved list of questions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: string
+                      description: The question ID
+                    title:
+                      type: string
+                      description: The question title
+                    description:
+                      type: string
+                      description: Detailed description of the question
+                    category:
+                      type: string
+                      description: Question category
+    post:
+      summary: Create a new question
+      tags:
+        - Questions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: The question title
+                description:
+                  type: string
+                  description: Detailed description of the question
+                category:
+                  type: string
+                  description: Question category
+      responses:
+        201:
+          description: Successfully created question
+  /api/questions/{id}:
+    get:
+      summary: Retrieve a single question by ID
+      tags:
+        - Questions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successfully retrieved question
+        404:
+          description: Question not found
+    put:
+      summary: Update a question
+      tags:
+        - Questions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+      responses:
+        200:
+          description: Successfully updated question
+        404:
+          description: Question not found
+    delete:
+      summary: Delete a question
+      tags:
+        - Questions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successfully deleted question
+        404:
+          description: Question not found
