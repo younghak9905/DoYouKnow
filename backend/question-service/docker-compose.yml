@@ -7,6 +7,7 @@ services:
       - "5000:5000"
     environment:
       - MONGO_URI=mongodb://mongo:27017/questions
+      - GPT_API_KEY=${GPT_API_KEY}
     depends_on:
       - mongo
 
