@@ -12,5 +12,7 @@ router
     .get(answerController.getAnswerById) // 특정 답변 조회
     .put(answerController.updateAnswer) // 특정 답변 수정
     .delete(answerController.deleteAnswer); // 특정 답변 삭제
-
+router
+    .route('/question/:questionId')
+    .get(answerController.getAnswerByQuestionId)
 module.exports = router;
