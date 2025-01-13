@@ -15,8 +15,9 @@ docker-compose.override.yml
 *.key
 *.mobileprovision
 *.orig
-
+.idea
 # Windows
 Thumbs.db
 
 .env
+
